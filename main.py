@@ -1,9 +1,34 @@
 import trackerclass
+import telebot
+from cred import *
+from time import sleep
+from datetime import datetime
 
 # List of tracking numbers - just paste yours.
-tr_numberlist = ['Trackingnumber1', 'Trackingnumber2']
+tr_numberlist = [TRACKING_NUMBER]
 
 tr = trackerclass.Tracker()
 
+
+def send_message(message):
+    bot = telebot.TeleBot(token=cred.TOKEN)
+    bot.send_message(chat_id=cred.CHAT_ID, text=message)
+
+
+curr_str = [ ]
+
 for n in tr_numberlist:
-    print(n, tr.getstatus(n)['status'])
+    curr_str.append((n, tr.getstatus(n)[ 'status' ]))
+# print(curr_str)
+
+while True:
+
+    for i, n in enumerate(tr_numberlist):
+        print(curr_str[i])
+        new_str = n, tr.getstatus(n)[ 'status' ]
+        print(new_str)
+        print(datetime.now())
+        if curr_str[i] != new_str:
+            send_message((n, tr.getstatus(n)[ 'status' ]))
+            curr_str[i] = new_str
+    sleep(120)
