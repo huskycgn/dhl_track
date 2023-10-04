@@ -29,7 +29,7 @@ while True:
             print(new_str)
             print(datetime.now())
             if curr_str[i] != new_str:
-                send_message((n, tr.getstatus(n)[ 'status' ]))
+                send_message((n, new_str))
                 curr_str[i] = new_str
     except ConnectionError:
         continue
