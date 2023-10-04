@@ -11,8 +11,8 @@ tr = trackerclass.Tracker()
 
 
 def send_message(message):
-    bot = telebot.TeleBot(token=cred.TOKEN)
-    bot.send_message(chat_id=cred.CHAT_ID, text=message)
+    bot = telebot.TeleBot(token=TOKEN)
+    bot.send_message(chat_id=CHAT_ID, text=message)
 
 
 curr_str = [ ]
@@ -22,13 +22,15 @@ for n in tr_numberlist:
 # print(curr_str)
 
 while True:
-
-    for i, n in enumerate(tr_numberlist):
-        print(curr_str[i])
-        new_str = n, tr.getstatus(n)[ 'status' ]
-        print(new_str)
-        print(datetime.now())
-        if curr_str[i] != new_str:
-            send_message((n, tr.getstatus(n)[ 'status' ]))
-            curr_str[i] = new_str
+    try:
+        for i, n in enumerate(tr_numberlist):
+            print(curr_str[i])
+            new_str = n, tr.getstatus(n)[ 'status' ]
+            print(new_str)
+            print(datetime.now())
+            if curr_str[i] != new_str:
+                send_message((n, tr.getstatus(n)[ 'status' ]))
+                curr_str[i] = new_str
+    except ConnectionError:
+        continue
     sleep(120)
