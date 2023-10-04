@@ -33,4 +33,4 @@ while True:
                 curr_str[i] = new_str
     except ConnectionError:
         continue
-    sleep(120)
+    sleep(360)
