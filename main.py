@@ -29,8 +29,8 @@ while True:
             print(new_str)
             print(datetime.now())
             if curr_str[i] != new_str:
-                send_message(new_str)
                 curr_str[i] = new_str
+                send_message(new_str)
     except ConnectionError:
         continue
     sleep(360)
